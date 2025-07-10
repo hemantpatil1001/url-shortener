@@ -3,12 +3,18 @@ package com.urlytics.shorttrace_service.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UrlShortener {
     private static final String CHAR_POOL = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int HASH_LENGTH = 6;
+
+    //read application properties
+    @Value("${custom.domain.name}")
+    String domainUrl;
+
     /**
      * Creates a short hash for the given URL.
      *
@@ -34,5 +40,9 @@ public class UrlShortener {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error generating hash", e);
         }
+    }
+
+    public String shortenUrl(String url){
+        return domainUrl.concat(createHash(url));
     }
 }

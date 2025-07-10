@@ -20,10 +20,10 @@ This returns a 256-bit hash (32 bytes) in binary format.
 
 #### 3. Convert Bytes to Characters:
 For each byte:
-Convert it to a positive number: (b & 0xFF)
+Convert it to a positive number: (byte & 0xFF)
 
 Get an index in the character pool(base-62) such as 
-``` index = (b & 0xFF) % CHAR_POOL.length() ```
+``` index = (byte & 0xFF) % CHAR_POOL.length() ```
 
 Pick the corresponding character from the CHAR_POOL.
 
@@ -34,8 +34,11 @@ Stop when length of 6 characters have been appended.
 #### 4. Output:
 Return the final 6-character string (e.g., aKf9Zx) as the short code.
 
+#### 5. Storing in Database
+Map the newly created 6-charater string to the input url to be retrieved later
 
-
+#### 6. Creating shortened url with custom domain name
+https://custome-domain.com/{base62-encoded-hash}
 
 
 
