@@ -40,5 +40,40 @@ Map the newly created 6-charater string to the input url to be retrieved later
 #### 6. Creating shortened url with custom domain name
 https://custome-domain.com/{base62-encoded-hash}
 
+### Database Integration
+
+#### 1. MySQL : RDBMS, Easy to manage, faster for simple queries 
+
+#### 2. Run the database instnace as a docker container for local development:
+Download mysql:latest docker image 
+```
+docker pull mysql:latest
+```
+Create a docker container from the image and specify environment variables neccessary for database creation
+``` 
+docker create \
+  --name my-mysql-container \
+  -e MYSQL_ROOT_PASSWORD=secret-root-passowrd \
+  -e MYSQL_DATABASE=urlytics \
+  -e MYSQL_USER=urlytics_app \
+  -e MYSQL_PASSWORD=testpass \
+  -v mysql_data:/var/lib/mysql \
+  -p 3306:3306 \
+  mysql:latest
+```
+Start the container
+```
+docker start my-mysql-container
+```
+Access the container's shell
+``` 
+docker exec -it my-mysql-container bash
+```
+Access mysql CLI
+
+```
+mysql -u root -p
+```
+
 
 
