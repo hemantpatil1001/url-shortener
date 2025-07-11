@@ -44,7 +44,7 @@ https://custome-domain.com/{base62-encoded-hash}
 
 #### 1. MySQL : RDBMS, Easy to manage, faster for simple queries 
 
-#### 2. Run the database instnace as a docker container for local development:
+#### 2. Run the database instance as a docker container for local development:
 Download mysql:latest docker image 
 ```
 docker pull mysql:latest
