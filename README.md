@@ -1,4 +1,4 @@
-# URL Shortner
+# URL Shortener
 
 ### What is a URL Shortener?
 _URL Shortener is a tool/application that shortens long and complex web addresses and transforms them into short and manageable links._
@@ -75,5 +75,6 @@ Access mysql CLI
 mysql -u root -p
 ```
 
+### Connect Springboot application to MySql
 
 
