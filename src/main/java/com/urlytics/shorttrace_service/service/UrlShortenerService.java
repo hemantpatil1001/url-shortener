@@ -2,7 +2,12 @@ package com.urlytics.shorttrace_service.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 
+import com.urlytics.shorttrace_service.model.ShortUrlEntity;
+import com.urlytics.shorttrace_service.model.ShortenUrlRequest;
+import com.urlytics.shorttrace_service.respository.ShortUrlJdbcRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +15,14 @@ import org.springframework.stereotype.Component;
 public class UrlShortenerService {
     private static final String CHAR_POOL = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     private static final int HASH_LENGTH = 6;
+    public static final String URLYTICS_APP = "urlytics_app";
 
     //read application properties
     @Value("${custom.domain.name}")
     String domainUrl;
+
+    @Autowired
+    ShortUrlJdbcRepository shortUrlJdbcRepository;
 
     /**
      * Creates a short hash for the given URL.
@@ -42,7 +51,16 @@ public class UrlShortenerService {
         }
     }
 
-    public String shortenUrl(String url){
-        return domainUrl.concat(createHash(url));
+    public String shortenUrl(ShortenUrlRequest request){
+
+        ShortUrlEntity shortUrlEntity = new ShortUrlEntity();
+        shortUrlEntity.setOriginalUrl(request.getUrl().replaceAll("https://",""));
+        shortUrlEntity.setExpiryAt(LocalDateTime.now().plusYears(1));
+        shortUrlEntity.setShortCode(createHash(shortUrlEntity.getOriginalUrl()));
+        shortUrlEntity.setCreatedAt(LocalDateTime.now());
+        shortUrlEntity.setCreatedBy(URLYTICS_APP);
+        shortUrlJdbcRepository.insertShortUrl(shortUrlEntity);
+        return domainUrl.concat(createHash(shortUrlEntity.getShortCode()));
+
     }
 }

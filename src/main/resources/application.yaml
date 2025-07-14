@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: shorttrace-service
+
+  datasource:
+    jdbcUrl: jdbc:mysql://localhost:3306/urlytics
+    password: testpass
+    username: urlytics_app
+    driver-class-name: com.mysql.cj.jdbc.Driver
+

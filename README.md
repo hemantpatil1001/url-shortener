@@ -52,7 +52,7 @@ docker pull mysql:latest
 Create a docker container from the image and specify environment variables neccessary for database creation
 ``` 
 docker create \
-  --name my-mysql-container \
+  --name urlytics-data-container \
   -e MYSQL_ROOT_PASSWORD=secret-root-passowrd \
   -e MYSQL_DATABASE=urlytics \
   -e MYSQL_USER=urlytics_app \
@@ -63,11 +63,11 @@ docker create \
 ```
 Start the container
 ```
-docker start my-mysql-container
+docker start urlytics-data-container
 ```
 Access the container's shell
 ``` 
-docker exec -it my-mysql-container bash
+docker exec -it urlytics-data-container bash
 ```
 Access mysql CLI
 

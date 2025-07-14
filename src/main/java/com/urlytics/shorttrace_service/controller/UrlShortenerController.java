@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UrlShortenerController {
 
+
     @Autowired
     UrlShortenerService urlShortenerService;
 
     @PostMapping("/shorten-url")
     public String shortenUrl(@RequestBody ShortenUrlRequest request){
-            return urlShortenerService.shortenUrl(request.getUrl());
-    }
 
+        return urlShortenerService.shortenUrl(request);
+    }
 }

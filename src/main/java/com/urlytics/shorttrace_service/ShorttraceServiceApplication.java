@@ -9,7 +9,6 @@ public class ShorttraceServiceApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(ShorttraceServiceApplication.class, args);
-
 	}
 
 }
