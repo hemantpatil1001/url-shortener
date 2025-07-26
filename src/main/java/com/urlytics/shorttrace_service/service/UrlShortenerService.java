@@ -1,5 +1,7 @@
 package com.urlytics.shorttrace_service.service;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
@@ -59,8 +61,14 @@ public class UrlShortenerService {
         shortUrlEntity.setShortCode(createHash(shortUrlEntity.getOriginalUrl()));
         shortUrlEntity.setCreatedAt(LocalDateTime.now());
         shortUrlEntity.setCreatedBy(URLYTICS_APP);
-        shortUrlJdbcRepository.insertShortUrl(shortUrlEntity);
+        shortUrlJdbcRepository.insertUrlHash(shortUrlEntity);
         return domainUrl.concat(createHash(shortUrlEntity.getShortCode()));
 
+    }
+
+    public String getOrginalUrl(String shortenedUrl) throws MalformedURLException {
+        URL url = new URL(shortenedUrl);
+        String originalUrl = shortUrlJdbcRepository.getOriginalUrl(url.getPath().replaceFirst("/",""));
+        return "https://".concat(originalUrl);
     }
 }
